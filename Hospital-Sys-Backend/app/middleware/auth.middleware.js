@@ -147,5 +147,17 @@ const authNurse = async (req, res, next) => {
       resGenerator(res, 500, e.message, "unauthorized");
     }
   };
+  const authAdminNurse = async (req, res, next) => {
+    try {
+      const token = req.header("Authorization").replace("Bearer ", "");
+      const user = await checkUser(token);
+      if (user.type != "admin" && user.type != "nurse") throw new Error("you are neither admin nor nurse");
+      req.user = user;
+      req.token = token;
+      next();
+    } catch (e) {
+      resGenerator(res, 500, e.message, "unauthorized");
+    }
+  };
   
-module.exports = {authAdminDoc, authAdminPharmacist, authAdminLabTechnician, authAdminPatient, auth, authAdmin, authDoctor, authNurse, authPharmacist, authLabTechnician, authPatient };
+module.exports = {authAdminDoc, authAdminNurse, authAdminPharmacist, authAdminLabTechnician, authAdminPatient, auth, authAdmin, authDoctor, authNurse, authPharmacist, authLabTechnician, authPatient };

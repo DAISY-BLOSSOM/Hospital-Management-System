@@ -8,6 +8,7 @@ const medicineRoutes = require("./app/routes/medicine.route");
 const departmentRoutes = require("./app/routes/department.route");
 const appointmentRoutes = require("./app/routes/appointment.route");
 const labResultsRoutes = require("./app/routes/labResults.route");
+const reportsRoutes = require("./app/routes/report.route");
 const myHelper = require("./app/helpers/methods");
 const app = express();
 
@@ -21,6 +22,7 @@ app.use("/api/medicine", medicineRoutes);
 app.use("/api/department", departmentRoutes);
 app.use("/api/appointment", appointmentRoutes);
 app.use("/api/labResults", labResultsRoutes);
+app.use("/api/reports", reportsRoutes);
 app.all("*", (req, res) => {
     myHelper.resGenerator(res, 404, "Invalid url", "not found");
 });
