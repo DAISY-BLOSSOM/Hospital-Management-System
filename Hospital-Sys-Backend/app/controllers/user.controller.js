@@ -16,7 +16,7 @@ class User{
             const userData = await userModel.login(req.body.email, req.body.password)
             if(!userData.status) return resGenerator(res, 500, {otp: userData.otp}, "activate first")
             const token = await userData.generateToken()
-            resGenerator(res, 200, {user:userData, token}, "registered")
+            resGenerator(res, 200, {user:userData, token}, "logined in")
         }
         catch(e){
             resGenerator(res, 500, e.message, "cann't login")

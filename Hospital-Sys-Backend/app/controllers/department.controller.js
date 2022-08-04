@@ -1,4 +1,4 @@
-const departmentModel = require("../db/models/medicine.model")
+const departmentModel = require("../db/models/department.model")
 const {resGenerator} = require("../helpers/methods")
 class Department{
     static addDepartment = async(req, res) =>{

@@ -98,5 +98,54 @@ const authNurse = async (req, res, next) => {
       resGenerator(res, 500, e.message, "unauthorized");
     }
   };
+
+  const authAdminDoc = async (req, res, next) => {
+    try {
+      const token = req.header("Authorization").replace("Bearer ", "");
+      const user = await checkUser(token);
+      if (user.type != "admin" && user.type != "doctor") throw new Error("you are neither admin nor doctor");
+      req.user = user;
+      req.token = token;
+      next();
+    } catch (e) {
+      resGenerator(res, 500, e.message, "unauthorized");
+    }
+  };
+  const authAdminPatient = async (req, res, next) => {
+    try {
+      const token = req.header("Authorization").replace("Bearer ", "");
+      const user = await checkUser(token);
+      if (user.type != "admin" && user.type != "patient") throw new Error("you are neither admin nor patient");
+      req.user = user;
+      req.token = token;
+      next();
+    } catch (e) {
+      resGenerator(res, 500, e.message, "unauthorized");
+    }
+  };
+  const authAdminLabTechnician = async (req, res, next) => {
+    try {
+      const token = req.header("Authorization").replace("Bearer ", "");
+      const user = await checkUser(token);
+      if (user.type != "admin" && user.type != "labTechnician") throw new Error("you are neither admin nor labTechnician");
+      req.user = user;
+      req.token = token;
+      next();
+    } catch (e) {
+      resGenerator(res, 500, e.message, "unauthorized");
+    }
+  };
+  const authAdminPharmacist = async (req, res, next) => {
+    try {
+      const token = req.header("Authorization").replace("Bearer ", "");
+      const user = await checkUser(token);
+      if (user.type != "admin" && user.type != "pharmacist") throw new Error("you are neither admin nor pharmacist");
+      req.user = user;
+      req.token = token;
+      next();
+    } catch (e) {
+      resGenerator(res, 500, e.message, "unauthorized");
+    }
+  };
   
-module.exports = { auth, authAdmin, authDoctor, authNurse, authPharmacist, authLabTechnician, authPatient };
+module.exports = {authAdminDoc, authAdminPharmacist, authAdminLabTechnician, authAdminPatient, auth, authAdmin, authDoctor, authNurse, authPharmacist, authLabTechnician, authPatient };

@@ -19,6 +19,11 @@ const departmentSchema = mongoose.Schema({
     desc:{
         type:String,
         trim:true,
+    },
+    addedby:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:"User"
     }
 })
 const Department = mongoose.model("Department", departmentSchema)
